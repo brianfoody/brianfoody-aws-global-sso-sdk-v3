@@ -29,13 +29,7 @@ export type AwsSsoConfig = {
   region?: string;
 };
 
-export type Account = {
-  accountId: string;
-  name?: string;
-  defaultRegion?: string;
-  roles: string[];
-};
-
+// Duplicated in api used for ipcrenderer
 export type Access = {
   organisations: Organisation[];
 };
@@ -49,6 +43,13 @@ export type Organisation = {
   roles: string[];
   accountsSyncedAtIso?: string;
   authorisedUntil?: Date;
+};
+
+export type Account = {
+  accountId: string;
+  name?: string;
+  defaultRegion?: string;
+  roles: string[];
 };
 
 export type AccessCard = AccessPair & {

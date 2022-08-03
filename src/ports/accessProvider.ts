@@ -60,5 +60,5 @@ export type AccessProvider = {
   /**
    * Return the full access scope we have for the customer
    */
-  access: () => Access;
+  access: () => Promise<Access>;
 };

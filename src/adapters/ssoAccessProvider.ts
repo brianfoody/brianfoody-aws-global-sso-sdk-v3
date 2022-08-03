@@ -248,7 +248,7 @@ export const makeSsoAccessProvider = ({
 
       return updateAccessScope(updatedAccessScope);
     },
-    access: () => {
+    access: async () => {
       return accessScope!;
     },
     authorise: async (access) => {
