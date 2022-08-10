@@ -357,14 +357,6 @@ export const makeSsoAccessProvider = ({
         throw new SSOExpiredError("SSO credentials have expired.");
       }
 
-      // If we've already sync'ed accounts do not do it again.
-      if (authOrg.accountsSyncedAtIso) {
-        console.info(`Already sync'ed accounts so skipping`);
-        return accessScope;
-      } else {
-        console.info(`SYNCING ACCOUNT`);
-      }
-
       await updateAccessScope({
         organisations: accessScope.organisations.map((o) => {
           if (o.ssoStartUrl === authOrg?.ssoStartUrl) {
@@ -374,6 +366,14 @@ export const makeSsoAccessProvider = ({
           return o;
         }),
       });
+
+      // If we've already sync'ed accounts do not do it again.
+      if (authOrg.accountsSyncedAtIso) {
+        console.info(`Already sync'ed accounts so skipping`);
+        return accessScope;
+      } else {
+        console.info(`SYNCING ACCOUNT`);
+      }
 
       const { access } = await refreshOrg(authOrg);
 
