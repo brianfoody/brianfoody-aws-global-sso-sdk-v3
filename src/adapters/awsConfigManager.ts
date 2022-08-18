@@ -15,6 +15,7 @@ type AwsSsoConfig = {
   sso_account_id: string;
   sso_role_name: string;
   region?: string;
+  alias: string;
 };
 
 /**
@@ -167,7 +168,8 @@ export const makeAwsConfigManager = ({
         return {
           ssoStartUrl: s,
           ssoRegion: profiles.find((p) => p.sso_start_url === s)!.sso_region,
-          accounts: accountsForStartUrl(profiles, s),
+          defaultRegion: profiles.find((p) => p.sso_start_url === s)?.region,
+          accounts: accounts,
           roles: uniq(accounts.flatMap((a) => a.roles)),
         } as Organisation;
       });
@@ -190,6 +192,7 @@ const accountsForStartUrl = (
     (a) =>
       ({
         accountId: a,
+        name: profiles.find((p) => p.sso_account_id === a)?.alias,
         defaultRegion: profiles.find((p) => p.sso_account_id === a)?.region,
         roles: rolesForAccount(profiles, a),
       } as Account)

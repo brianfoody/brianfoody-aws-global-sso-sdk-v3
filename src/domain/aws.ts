@@ -38,6 +38,7 @@ export type Organisation = {
   logicallyDeleted?: boolean;
   ssoStartUrl: string;
   ssoRegion: string;
+  defaultRegion?: string;
   nickname?: string; // added by user
   accounts: Account[];
   roles: string[];
